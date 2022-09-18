@@ -24,16 +24,16 @@ displayReading = (entry) => {
   let i = 0;
   console.log(entry);
   while(i <= length){
-    
+    if (!entry[i].senses[0].parts_of_speech.includes("Wikipedia definition")) {
       $(".output").append(
         `<ul id="${entry[i].japanese[0].word}" class="word"></ul>`);
       $(`#${entry[i].japanese[0].word}`).append(
         `<h4>
-        Kanji: ${entry[i].japanese[0].word}<br />
-        Reading: ${entry[i].japanese[0].reading}</h4>`
+        Kanji: ${entry[i].japanese[0].word} — 
+        Reading: ${entry[i].japanese[0].reading}</h4> <hr />`
       );
-
-    displayDefinition(entry, i)
+      displayDefinition(entry, i);
+    } else if (length < entry.length - 1) { length++; }
     i++;
   }
 }
@@ -52,14 +52,17 @@ displayDefinition = (entry, i) => {
   }
 }
 
+validateEntry = (word, entry) => {
+  if (entry.length === 0 || (entry.length === 1 && entry[0].senses[0].parts_of_speech.includes("Wikipedia definition"))) {
+    $(".output").html(
+      `<h5 id="error-text">No results for ${word}.</h5>`);
+    return false;
+  }
+  return true;
+}
+
 displayEntry = (entry) => {
   clearFields();
-
-  if (entry.length === 0) {
-    $(".output").html(
-      `<h5 id="error-text">Error: Invalid search term.</h5>`);
-    return 0;
-  }
 
   displayReading(entry);
 }
@@ -73,7 +76,9 @@ $(document).ready(function() {
     event.preventDefault();
     let word = $("#searchTerm").val();
     let dictionary = await makeApiCall(word);
-    displayEntry(dictionary.data);
+    if (validateEntry(word, dictionary.data)) {
+      displayEntry(dictionary.data);
+    }
   });
 
   $(".output").on('click', '.word', function(event) {
@@ -83,4 +88,14 @@ $(document).ready(function() {
       kid.classList.contains("visible") && kid.classList.contains("definition") ? 
       $(kid).removeClass("visible") : $(kid).addClass("visible"));
   });
+
+  $("form#redirectToJisho").submit(function(event) {
+    event.preventDefault();
+    let word = $("#searchTerm").val();
+    if (word === "") {
+      window.location.replace("https://jisho.org/");
+    } else {
+      window.location.replace(`https://jisho.org/search/${word}`);
+    }
+  })
 });

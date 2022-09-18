@@ -2,38 +2,40 @@ body {
   font-family: Helvetica, sans-serif;
   color: #5a5a5b;
   background-color: #f2f1f0;
-  border-top: 10px solid #5a5a5b;
-  border-bottom: 20px double #3caf0a;
+  border: 10px solid #5a5a5b;
   margin: 0;
   padding: 5px;
-  width: 384px;
+  width: 480px;
   height: auto;
 }
 
 h1 {
-  font-size: 28px;
-  margin: 5px;
-}
-
-h4 {
   font-size: 20px;
   margin: 5px;
 }
 
+h4 {
+  font-size: 16px;
+  margin: 0;
+}
+
 ul {
   margin-block-start: 0px;
+  margin: 0;
   padding-inline-start: 10px;
   padding-inline-end: 10px;
 }
 
 li {
   list-style-type: none;
-  margin-bottom: 1%;
-  font-size: 20px;
+  margin-bottom: 3px;
+  margin-left: 5px;
+  font-size: 14px;
 }
 
 em {
-  font-size: 16px;
+  font-size: 14px;
+  font-weight: 200;
 }
 
 ul li { display: none; }
@@ -48,21 +50,29 @@ form {
   justify-content: center;
 }
 
+input {
+  height: 30px;
+}
+
 button {
   background: #5a5a5b;
   color: #f2f1f0;
+  font-size: 14px;
   border: 5px double #f2f1f0;
   padding: 3px;
   padding-left: 6px;
   padding-right: 6px;
+  height: 35px;
+}
+
+hr {
+  margin: 3px;
 }
 
 .container {
   display: flex;
   flex-flow: column wrap;
   justify-content: center;
-  border-left: 10px solid #5a5a5b;
-  border-right: 10px solid #5a5a5b;
   margin: 0px;
   padding: 0px;
 }
@@ -74,12 +84,20 @@ button {
 .output {
   padding: 0px;
   margin: 0px;
+  margin-bottom: 5px;
 }
 
-.output p {
+.output p, h5 {
   text-align: center;
+  margin: 0px;
+}
+
+.definition {
+  font-weight: bold;
 }
 
 #search {
   margin-bottom: 5px;
+  height: 35px;
 }
+
