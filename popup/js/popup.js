@@ -18,22 +18,17 @@ async function makeApiCall(word) {
   return dictionary;
 }
 
-function displayEntry(entry) {
-  clearFields();
-
-  if (entry.length === 0) {
-    $(".output").html(`<h5 id="error-text">Error: Invalid search term.</h5>`);
-    return 0;
-  }
-
-  let entry1 = entry;
-  for(let i=0; i<entry.length; i++){
-    let words = Object.values(entry1[i]);
+function displayReading(entry) {
+  (entry.length < 2) ? length = entry.length : length = 2;
+  let i = 0;
+  while(i <= length){
+    let words = Object.values(entry[i]);
 
     if (Object.values(words[4][0]).length < 2) {
       words = Object.values(words[4][0]);
 
-      $(".output").append(`<h4>Japanese: Reading: ${Object.values(words)}</h4>`);
+      $(".output").append(
+        `<h4>Japanese: Reading: ${Object.values(words)}</h4>`);
     
     } else {
       words = Object.values(words[4]);
@@ -42,26 +37,48 @@ function displayEntry(entry) {
       if (words[1][0] === 'Wikipedia definition') {
         break;
       }
-      $(".output").append(`<ul id="${words[0]}" class="word"></ul>`);
-      $(`#${words[0]}`).append(`<h4>Kanji: ${words[0]}<br />Reading: ${words[1]}</h4>`);
+      $(".output").append(
+        `<ul id="${words[0]}" class="word"></ul>`);
+      $(`#${words[0]}`).append(
+        `<h4>
+        Kanji: ${words[0]}<br />
+        Reading: ${words[1]}</h4>`
+      );
     }
-
-
-    let entry2 = Object.values(entry1[i]);
-    let wordId = words[0];
-    let length;
-    (entry2[5].length < 3) ? length = entry2[5].length : length = 3;
-    for (let j=0; j<length; j++) {
-      let senses = Object.values(entry2[5]);
-
-      $(`#${wordId}`).append(`<li class="definition"><em>${senses[j].parts_of_speech.join(", ")}</em> <br> ${senses[j].english_definitions.join(", ")}</li>`);
-    }
-
-    if (i === 2) {
-      break;
-    }
+    displayDefinition(entry, words, i)
+    i++;
   }
 }
+
+function displayDefinition(entry, words, i) {
+  entry = Object.values(entry[i]);
+  let wordId = words[0];
+  let length;
+  (entry[5].length < 3) ? length = entry[5].length : length = 3;
+  for (let j=0; j<length; j++) {
+    let senses = Object.values(entry[5]);
+
+    $(`#${wordId}`).append(
+      `<li class="definition"><em>
+      ${senses[j].parts_of_speech.join(", ")}</em> <br>
+      ${senses[j].english_definitions.join(", ")}</li>`
+    );
+  }
+}
+
+function displayEntry(entry) {
+  clearFields();
+
+  if (entry.length === 0) {
+    $(".output").html(
+      `<h5 id="error-text">Error: Invalid search term.</h5>`);
+    return 0;
+  }
+
+  displayReading(entry);
+
+}
+
 
 function clearFields() {
   $(".output").html("");
