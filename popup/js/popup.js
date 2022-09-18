@@ -39,14 +39,15 @@ displayReading = (entry) => {
 }
 
 displayDefinition = (entry, i) => {
-  let wordId = entry[i].japanese.word;
+  let wordId = entry[i].japanese[0].word;
+  console.log(wordId);
   let length;
   (entry[i].senses.length < 3) ? length = entry[i].senses.length : length = 3;
   for (let j=0; j<length; j++) {
     $(`#${wordId}`).append(
-      `<li class="definition"><em>
-      ${entry[i].senses[j].parts_of_speech.join(", ")}</em> <br>
-      ${entry[i].senses[j].english_definitions.join(", ")}</li>`
+      `<li class="definition"><em class="parts_of_speech">
+      ${entry[i].senses[j].parts_of_speech.join(", ")}</em> <br />
+      ${entry[i].senses[j].english_definitions.join(", ")}<hr /></li>`
     );
   }
 }
@@ -83,13 +84,3 @@ $(document).ready(function() {
       $(kid).removeClass("visible") : $(kid).addClass("visible"));
   });
 });
-
-// chrome.contextMenus.create({
-//   title: "Search Jisho.org for \"%s\"",
-//   contexts: ["selection"],
-//   onclick: displayEntryFromClick
-// });
-
-function displayEntryFromClick(info, tab) {
-  displayEntry(info.selectionText);
-}
