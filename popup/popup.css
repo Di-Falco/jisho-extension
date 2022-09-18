@@ -3,9 +3,14 @@ body {
   color: #5a5a5b;
   background-color: #f2f1f0;
   border-top: 10px solid #5a5a5b;
-  border-bottom: 20px solid #5ddc28;
+  border-bottom: 20px double #5ddc28;
   margin: 0;
-  padding: 1%;
+  padding: 5px;
+  max-width: 100vw;
+}
+
+h1 {
+  margin: 5px;
 }
 
 li {
@@ -19,8 +24,28 @@ ul .visible {
   display: block;
 }
 
+form {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
 button {
   background: #5a5a5b;
   color: #f2f1f0;
   border: 5px double #f2f1f0;
+}
+
+.container {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  border-left: 10px solid #5a5a5b;
+  border-right: 10px solid #5a5a5b;
+  padding: 10px;
+  padding-top: 0px;
+}
+
+.header {
+  text-align: center;
 }
