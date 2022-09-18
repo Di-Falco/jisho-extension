@@ -24,7 +24,7 @@ displayReading = (entry) => {
   let i = 0;
   console.log(entry);
   while(i <= length){
-    if (!entry[i].senses[0].parts_of_speech.includes("Wikipedia definition")) {
+    if (entry[i].senses && !entry[i].senses[0].parts_of_speech.includes("Wikipedia definition")) {
       $(".output").append(
         `<ul id="${entry[i].japanese[0].word}" class="word"></ul>`);
       $(`#${entry[i].japanese[0].word}`).append(
@@ -53,7 +53,7 @@ displayDefinition = (entry, i) => {
 }
 
 validateEntry = (word, entry) => {
-  if (entry.length === 0 || (entry.length === 1 && entry[0].senses[0].parts_of_speech.includes("Wikipedia definition"))) {
+  if (!entry || entry.length === 0 || (entry.length === 1 && entry[0].senses[0].parts_of_speech.includes("Wikipedia definition"))) {
     $(".output").html(
       `<h5 id="error-text">No results for ${word}.</h5>`);
     return false;
