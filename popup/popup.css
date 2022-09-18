@@ -96,6 +96,10 @@ hr {
   font-weight: bold;
 }
 
+.jlpt {
+  float: right;
+}
+
 #search {
   margin-bottom: 5px;
   height: 35px;
