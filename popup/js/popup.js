@@ -93,9 +93,9 @@ $(document).ready(function() {
     event.preventDefault();
     let word = $("#searchTerm").val();
     if (word === "") {
-      window.location.replace("https://jisho.org/");
+      window.open("https://jisho.org/", "_blank");
     } else {
-      window.location.replace(`https://jisho.org/search/${word}`);
+      window.open(`https://jisho.org/search/${word}`, "_blank");
     }
   })
 });
