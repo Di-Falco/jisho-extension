@@ -1,8 +1,9 @@
 body {
   font-family: Helvetica, sans-serif;
+  color: #5a5a5b;
   background-color: #f2f1f0;
-  border: 10px solid #5a5a5b;
-  border-top: 25px solid #5ddc28;
+  border-top: 10px solid #5a5a5b;
+  border-bottom: 20px solid #5ddc28;
   margin: 0;
   padding: 1%;
 }
@@ -12,8 +13,14 @@ li {
   margin-bottom: 1%;
 }
 
+ul li { display: none; }
+
+ul .visible {
+  display: block;
+}
+
 button {
   background: #5a5a5b;
   color: #f2f1f0;
-  border: 5px double #f2f1f0
+  border: 5px double #f2f1f0;
 }

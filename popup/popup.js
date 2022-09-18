@@ -1,11 +1,7 @@
-const jishoAPI = "";
-const apiVersion = "";
-const apiKey = ``;
-
 class Jisho {
   static async search(word) {
     try {
-      const response = await fetch(`https://cors-anywhere.herokuapp.com/https://jisho.org/api/v1/search/words?keyword=${word}`);
+      const response = await fetch(`https://jisho-cors.herokuapp.com/https://jisho.org/api/v1/search/words?keyword=${word}`);
       if(!response.ok) {
         throw Error(response.statusText);
       }
@@ -38,33 +34,33 @@ function displayEntry(entry) {
       words = Object.values(words[4][0]);
 
       $(".output").append(`<h4>Japanese: Reading: ${Object.values(words)}</h4>`);
-      $(".output").append(`<ul>`);
     
     } else {
       words = Object.values(words[4]);
       words = Object.values(words);
       words = Object.values(words[0]);
       if (words[1][0] === 'Wikipedia definition') {
-        return 0;
+        break;
       }
-      $(".output").append(`<br /><h4>Kanji: ${words[0]}<br />Reading: ${words[1]}</h4>`);
-      $(".output").append(`<ul>`);
+      $(".output").append(`<ul id="${words[0]}" class="word"></ul>`);
+      $(`#${words[0]}`).append(`<h4>Kanji: ${words[0]}<br />Reading: ${words[1]}</h4>`);
     }
 
+
     let entry2 = Object.values(entry1[i]);
+    let wordId = words[0];
     let length;
-    (entry2[5].length < 5) ? length = entry2[5].length : length = 5;
+    (entry2[5].length < 3) ? length = entry2[5].length : length = 3;
     for (let j=0; j<length; j++) {
       let senses = Object.values(entry2[5]);
 
-      $(".output").append(`<li>${senses[j].parts_of_speech.join(", ")} <br>Definition: ${senses[j].english_definitions.join(", ")}</li>`);
+      $(`#${wordId}`).append(`<li class="definition"><em>${senses[j].parts_of_speech.join(", ")}</em> <br> ${senses[j].english_definitions.join(", ")}</li>`);
     }
 
     if (i === 2) {
       break;
     }
   }
-  $(".output").append("</ul>");
 }
 
 function clearFields() {
@@ -72,18 +68,27 @@ function clearFields() {
 }
 
 $(document).ready(function() {
-  $(".search").click(async function() {
-    let word = $("#word").val();
+  $("form#search").submit(async function(event) {
+    event.preventDefault();
+    let word = $("#searchTerm").val();
     let dictionary = await makeApiCall(word);
     displayEntry(dictionary.data);
-  })
+  });
+
+  $(".output").on('click', '.word', function(event) {
+    let kids = $(event.target).parent().children().toArray();
+    console.log(kids);
+    kids.forEach(kid => 
+      kid.classList.contains("visible") && kid.classList.contains("definition") ? 
+      $(kid).removeClass("visible") : $(kid).addClass("visible"));
+  });
 });
 
-chrome.contextMenus.create({
-  title: "Search Jisho.org for \"%s\"",
-  contexts: ["selection"],
-  onclick: displayEntryFromClick
-});
+// chrome.contextMenus.create({
+//   title: "Search Jisho.org for \"%s\"",
+//   contexts: ["selection"],
+//   onclick: displayEntryFromClick
+// });
 
 function displayEntryFromClick(info, tab) {
   displayEntry(info.selectionText);
