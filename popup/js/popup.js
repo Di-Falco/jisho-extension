@@ -1,4 +1,5 @@
 class Jisho {
+
   static async search(word) {
     try {
       const response = await fetch(`https://jisho-cors.herokuapp.com/https://jisho.org/api/v1/search/words?keyword=${word}`);
@@ -18,55 +19,39 @@ async function makeApiCall(word) {
   return dictionary;
 }
 
-function displayReading(entry) {
+displayReading = (entry) => {
   (entry.length < 2) ? length = entry.length : length = 2;
   let i = 0;
+  console.log(entry);
   while(i <= length){
-    let words = Object.values(entry[i]);
-
-    if (Object.values(words[4][0]).length < 2) {
-      words = Object.values(words[4][0]);
-
-      $(".output").append(
-        `<h4>Japanese: Reading: ${Object.values(words)}</h4>`);
     
-    } else {
-      words = Object.values(words[4]);
-      words = Object.values(words);
-      words = Object.values(words[0]);
-      if (words[1][0] === 'Wikipedia definition') {
-        break;
-      }
       $(".output").append(
-        `<ul id="${words[0]}" class="word"></ul>`);
-      $(`#${words[0]}`).append(
+        `<ul id="${entry[i].japanese[0].word}" class="word"></ul>`);
+      $(`#${entry[i].japanese[0].word}`).append(
         `<h4>
-        Kanji: ${words[0]}<br />
-        Reading: ${words[1]}</h4>`
+        Kanji: ${entry[i].japanese[0].word}<br />
+        Reading: ${entry[i].japanese[0].reading}</h4>`
       );
-    }
-    displayDefinition(entry, words, i)
+
+    displayDefinition(entry, i)
     i++;
   }
 }
 
-function displayDefinition(entry, words, i) {
-  entry = Object.values(entry[i]);
-  let wordId = words[0];
+displayDefinition = (entry, i) => {
+  let wordId = entry[i].japanese.word;
   let length;
-  (entry[5].length < 3) ? length = entry[5].length : length = 3;
+  (entry[i].senses.length < 3) ? length = entry[i].senses.length : length = 3;
   for (let j=0; j<length; j++) {
-    let senses = Object.values(entry[5]);
-
     $(`#${wordId}`).append(
       `<li class="definition"><em>
-      ${senses[j].parts_of_speech.join(", ")}</em> <br>
-      ${senses[j].english_definitions.join(", ")}</li>`
+      ${entry[i].senses[j].parts_of_speech.join(", ")}</em> <br>
+      ${entry[i].senses[j].english_definitions.join(", ")}</li>`
     );
   }
 }
 
-function displayEntry(entry) {
+displayEntry = (entry) => {
   clearFields();
 
   if (entry.length === 0) {
@@ -76,11 +61,9 @@ function displayEntry(entry) {
   }
 
   displayReading(entry);
-
 }
 
-
-function clearFields() {
+clearFields = () => {
   $(".output").html("");
 }
 
