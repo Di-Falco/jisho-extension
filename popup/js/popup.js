@@ -22,7 +22,6 @@ async function makeApiCall(word) {
 displayReading = (entry) => {
   (entry.length < 2) ? length = entry.length : length = 2;
   let i = 0;
-  console.log(entry);
   while(i <= length){
     if (entry[i].senses && !entry[i].senses[0].parts_of_speech.includes("Wikipedia definition")) {
       $(".output").append(
@@ -40,7 +39,6 @@ displayReading = (entry) => {
 
 displayDefinition = (entry, i) => {
   let wordId = entry[i].japanese[0].word;
-  console.log(wordId);
   let length;
   (entry[i].senses.length < 3) ? length = entry[i].senses.length : length = 3;
   for (let j=0; j<length; j++) {
@@ -83,7 +81,6 @@ $(document).ready(function() {
 
   $(".output").on('click', '.word', function(event) {
     let kids = $(event.target).parent().children().toArray();
-    console.log(kids);
     kids.forEach(kid => 
       kid.classList.contains("visible") && kid.classList.contains("definition") ? 
       $(kid).removeClass("visible") : $(kid).addClass("visible"));
