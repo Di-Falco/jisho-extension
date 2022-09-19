@@ -38,7 +38,7 @@ displayReading = (entry) => {
 }
 
 displayDefinition = (entry, i) => {
-  let wordId = entry[i].japanese[0].word;
+  const wordId = entry[i].japanese[0].word;
   let length;
   (entry[i].senses.length < 3) ? length = entry[i].senses.length : length = 3;
   for (let j=0; j<length; j++) {
@@ -82,8 +82,8 @@ formatJlpt = (jlpt) => {
 $(document).ready(function() {
   $("form#search").submit(async function(event) {
     event.preventDefault();
-    let word = $("#searchTerm").val();
-    let dictionary = await makeApiCall(word);
+    const word = $("#searchTerm").val();
+    const dictionary = await makeApiCall(word);
     if (validateEntry(word, dictionary.data)) {
       displayEntry(dictionary.data);
     }
