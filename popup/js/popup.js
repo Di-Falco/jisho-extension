@@ -23,31 +23,32 @@ displayReading = (entry) => {
   (entry.length < 2) ? length = entry.length : length = 2;
   let i = 0;
   while(i <= length){
+    let wordId = entry[i].japanese[0].word ? entry[i].japanese[0].word : entry[i].japanese[0].reading;
     if (entry[i] && !entry[i].senses[0].parts_of_speech.includes("Wikipedia definition")) {
       $(".output").append(
-        `<ul id="${entry[i].japanese[0].word}" class="word"></ul>`);
-      $(`#${entry[i].japanese[0].word}`).append(
+        `<ul id="${wordId}" class="word"></ul>`);
+      $(`#${wordId}`).append(
         `<h4>
-        Kanji: ${entry[i].japanese[0].word ? entry[i].japanese[0].word : entry[i].japanese[0].reading } — 
+        Kanji: ${wordId} — 
         Reading: ${entry[i].japanese[0].reading}</h4> <hr />`
       );
-      displayDefinition(entry, i);
+      displayDefinition(entry[i]);
     } else if (length < entry.length - 1) { length++; }
     i++;
   }
 }
 
-displayDefinition = (entry, i) => {
-  const wordId = entry[i].japanese[0].word;
+displayDefinition = (entry) => {
+  const wordId = entry.japanese[0].word ? entry.japanese[0].word: entry.japanese[0].reading;
   let length;
-  (entry[i].senses.length < 3) ? length = entry[i].senses.length : length = 3;
+  (entry.senses.length < 3) ? length = entry.senses.length : length = 3;
   for (let j=0; j<length; j++) {
-    if(!entry[i].senses[j].parts_of_speech.includes("Wikipedia definition"))
+    if(!entry.senses[j].parts_of_speech.includes("Wikipedia definition"))
     $(`#${wordId}`).append(
       `<li class="definition"><span class="parts_of_speech">
-      ${entry[i].senses[j].parts_of_speech.join(", ")} — ${entry[i].is_common ? "common" : "uncommon"}</span>
-      <span class="jlpt">${formatJlpt(entry[i].jlpt)}</span><br />
-      ${entry[i].senses[j].english_definitions.join(", ")}<hr /></li>`
+      ${entry.senses[j].parts_of_speech.join(", ")} — ${entry.is_common ? "common" : "uncommon"}</span>
+      <span class="jlpt">${formatJlpt(entry.jlpt)}</span><br />
+      ${entry.senses[j].english_definitions.join(", ")}<hr /></li>`
     );
   }
 }
