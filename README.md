@@ -1,10 +1,10 @@
 # Jisho Chrome Extension
 
-### by Anthony DiFalco
+#### by Anthony DiFalco
 
 This extension is pending publication.
 
-## Using the extension
+### Using the extension
 
 Text input sends a GET request to the unofficial jisho.org API.
 
@@ -18,4 +18,4 @@ Some goals:
 * _ONGOING:_ improve the formatting and entry info
 * allow users to translate words directly on the page
 
-More information regarding Jisho and it's sources can be found at https://jisho.org/about
+More information regarding Jisho and its sources can be found at https://jisho.org/about
