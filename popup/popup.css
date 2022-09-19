@@ -96,8 +96,16 @@ hr {
   font-weight: bold;
 }
 
+.parts_of_speech {
+  font-style: italic;
+  font-weight: 200;
+}
+
 .jlpt {
   float: right;
+  display: inline;
+  font-style: italic;
+  font-weight: 200;
 }
 
 #search {

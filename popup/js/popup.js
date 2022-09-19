@@ -23,7 +23,7 @@ displayReading = (entry) => {
   (entry.length < 2) ? length = entry.length : length = 2;
   let i = 0;
   while(i <= length){
-    if (entry[i].senses && !entry[i].senses[0].parts_of_speech.includes("Wikipedia definition")) {
+    if (entry[i] && !entry[i].senses[0].parts_of_speech.includes("Wikipedia definition")) {
       $(".output").append(
         `<ul id="${entry[i].japanese[0].word}" class="word"></ul>`);
       $(`#${entry[i].japanese[0].word}`).append(
@@ -44,9 +44,9 @@ displayDefinition = (entry, i) => {
   for (let j=0; j<length; j++) {
     if(!entry[i].senses[j].parts_of_speech.includes("Wikipedia definition"))
     $(`#${wordId}`).append(
-      `<li class="definition"><em class="parts_of_speech">
-      ${entry[i].senses[j].parts_of_speech.join(", ")} — ${entry[i].is_common ? "common" : "uncommon"}</em>
-      <em class="jlpt">${entry[i].jlpt.join(", ")}</em> <br />
+      `<li class="definition"><span class="parts_of_speech">
+      ${entry[i].senses[j].parts_of_speech.join(", ")} — ${entry[i].is_common ? "common" : "uncommon"}</span>
+      <span class="jlpt">${formatJlpt(entry[i].jlpt)}</span><br />
       ${entry[i].senses[j].english_definitions.join(", ")}<hr /></li>`
     );
   }
@@ -63,12 +63,20 @@ validateEntry = (word, entry) => {
 
 displayEntry = (entry) => {
   clearFields();
-
   displayReading(entry);
 }
 
 clearFields = () => {
   $(".output").html("");
+}
+
+formatJlpt = (jlpt) => {
+  let output = [];
+  jlpt.forEach(level => {
+    level = level.toString().split("-");
+    output.push(level[1])
+  });
+  return output.join(", ");
 }
 
 $(document).ready(function() {
@@ -82,10 +90,7 @@ $(document).ready(function() {
   });
 
   $(".output").on('click', '.word', function(event) {
-    let kids = $(event.target).parent().children().toArray();
-    kids.forEach(kid => 
-      kid.classList.contains("visible") && kid.classList.contains("definition") ? 
-      $(kid).removeClass("visible") : $(kid).addClass("visible"));
+    $(event.target).parents("ul.word").children().toggleClass("visible");
   });
 
   $("form#redirectToJisho").submit(function(event) {
