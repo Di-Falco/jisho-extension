@@ -14,6 +14,8 @@ If an invalid word is entered, or no results return from the API, a simple error
 
 A link at the bottom of the extension redirects to the jisho.org page for the given word, or to the homepage if no word is entered.
 
+_NOTE: the first search usually takes a moment owing to the current CORS workaround I have implemented. ごめんなさい。_
+
 Some goals:
 * _ONGOING:_ improve the formatting and entry info
 * allow users to translate words directly on the page

@@ -28,7 +28,7 @@ displayReading = (entry) => {
         `<ul id="${entry[i].japanese[0].word}" class="word"></ul>`);
       $(`#${entry[i].japanese[0].word}`).append(
         `<h4>
-        Kanji: ${entry[i].japanese[0].word} — 
+        Kanji: ${entry[i].japanese[0].word ? entry[i].japanese[0].word : entry[i].japanese[0].reading } — 
         Reading: ${entry[i].japanese[0].reading}</h4> <hr />`
       );
       displayDefinition(entry, i);
