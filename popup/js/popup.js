@@ -19,21 +19,26 @@ async function makeApiCall(word) {
   return dictionary;
 }
 
-displayReading = (entry) => {
+displayReading = (word, entry) => {
+  clearFields();
   (entry.length < 2) ? length = entry.length : length = 2;
   let i = 0;
   while(i <= length){
-    let wordId = entry[i].japanese[0].word ? entry[i].japanese[0].word : entry[i].japanese[0].reading;
-    if (entry[i] && !entry[i].senses[0].parts_of_speech.includes("Wikipedia definition")) {
-      $(".output").append(
-        `<ul id="${wordId}" class="word"></ul>`);
-      $(`#${wordId}`).append(
-        `<h4>
-        Kanji: ${wordId} — 
-        Reading: ${entry[i].japanese[0].reading}</h4> <hr />`
-      );
-      displayDefinition(entry[i]);
-    } else if (length < entry.length - 1) { length++; }
+    if(validateEntry(word, entry[i])) {
+      let wordId = entry[i].japanese[0].word ? entry[i].japanese[0].word : entry[i].japanese[0].reading;
+      if (!entry[i].senses[0].parts_of_speech.includes("Wikipedia definition")) {
+        $(".output").append(
+          `<ul id="${wordId}" class="word"></ul>`);
+        $(`#${wordId}`).append(
+          `<h4>
+          Kanji: ${wordId} — 
+          Reading: ${entry[i].japanese[0].reading}</h4> <hr />`
+        );
+        displayDefinition(entry[i]);
+      } else if (length < entry.length - 1) { length++; }
+    } else {
+
+    }
     i++;
   }
 }
@@ -62,11 +67,6 @@ validateEntry = (word, entry) => {
   return true;
 }
 
-displayEntry = (entry) => {
-  clearFields();
-  displayReading(entry);
-}
-
 clearFields = () => {
   $(".output").html("");
 }
@@ -86,7 +86,7 @@ $(document).ready(function() {
     const word = $("#searchTerm").val();
     const dictionary = await makeApiCall(word);
     if (validateEntry(word, dictionary.data)) {
-      displayEntry(dictionary.data);
+      displayReading(word, dictionary.data);
     }
   });
 
