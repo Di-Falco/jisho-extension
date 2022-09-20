@@ -19,5 +19,6 @@ _NOTE: the first search usually takes a moment owing to the current CORS workaro
 Some goals:
 * _ONGOING:_ improve the formatting and entry info
 * allow users to translate words directly on the page
+* include a reading translated from hiragana / katakana to their hepburn counterparts
 
 More information regarding Jisho and its sources can be found at https://jisho.org/about
