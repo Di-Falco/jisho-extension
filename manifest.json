@@ -7,7 +7,7 @@
   "host_permissions": [],
   "action": {
     "default_title": "Jisho",
-    "default_icon": "assets/icon-32.png",
+    "default_icon": "assets/icon.png",
     "default_popup": "popup/popup.html"
   }
 }
