@@ -51,7 +51,7 @@ displayDefinition = (entry) => {
     if(!entry.senses[j].parts_of_speech.includes("Wikipedia definition"))
     $(`#${wordId}`).append(
       `<li class="definition"><span class="parts_of_speech">
-      ${entry.senses[j].parts_of_speech.join(", ")} — ${entry.is_common ? "common" : "uncommon"}</span>
+      ${entry.senses[j].parts_of_speech.length > 0 ? (entry.senses[j].parts_of_speech.join(", ") + ' — ') : ""} ${entry.is_common ? "common" : "uncommon"}</span>
       <span class="jlpt">${formatJlpt(entry.jlpt)}</span><br />
       ${entry.senses[j].english_definitions.join(", ")}<hr /></li>`
     );
