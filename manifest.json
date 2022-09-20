@@ -3,11 +3,9 @@
   "description": "Jisho.org extension",
   "version": "0.2",
   "manifest_version": 3,
-  "permissions": [
-    ["activeTab"]
-  ],
+  "permissions": ["activeTab"],
   "host_permissions": [],
-  "browser_action": {
+  "action": {
     "default_title": "Jisho",
     "default_icon": "assets/icon-32.png",
     "default_popup": "popup/popup.html"
