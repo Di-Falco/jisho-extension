@@ -1,10 +1,8 @@
 {
   "name": "Jisho",
-  "description": "Jisho.org extension",
-  "version": "0.2",
+  "description": "Japanese-English dictionary access, on any webpage",
+  "version": "1.0",
   "manifest_version": 3,
-  "permissions": ["activeTab"],
-  "host_permissions": [],
   "action": {
     "default_title": "Jisho",
     "default_icon": "assets/icon.png",

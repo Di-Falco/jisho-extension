@@ -97,6 +97,11 @@ hr {
   margin: 0px;
 }
 
+.word h4:hover {
+  color: #b11919;
+  cursor: pointer;
+}
+
 .definition {
   font-weight: bold;
 }
