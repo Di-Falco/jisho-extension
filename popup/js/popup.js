@@ -59,7 +59,7 @@ displayDefinition = (entry) => {
 }
 
 validateEntry = (word, entry) => {
-  if (!entry || entry.length === 0 || (entry.length === 1 && entry[0].senses[0].parts_of_speech.includes("Wikipedia definition"))) {
+  if (entry.length === 0 || (entry.length === 1 && entry[0].senses[0].parts_of_speech.includes("Wikipedia definition"))) {
     $(".output").html(
       `<h5 id="error-text">No results for ${word}.</h5>`);
     return false;
@@ -83,7 +83,7 @@ formatJlpt = (jlpt) => {
 $(document).ready(function() {
   $("form#search").submit(async function(event) {
     event.preventDefault();
-    const word = $("#searchTerm").val();
+    const word = $("#searchTerm").val().toLowerCase();
     const dictionary = await makeApiCall(word);
     if (validateEntry(word, dictionary.data)) {
       displayReading(word, dictionary.data);
