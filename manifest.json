@@ -1,7 +1,7 @@
 {
   "name": "Jisho",
   "description": "Japanese-English dictionary access, on any webpage",
-  "version": "1.0",
+  "version": "1.1",
   "manifest_version": 3,
   "action": {
     "default_title": "Jisho",

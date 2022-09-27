@@ -20,3 +20,8 @@ Some goals:
 * include a reading translated from hiragana / katakana to their hepburn counterparts
 
 More information regarding Jisho and its sources can be found at https://jisho.org/about
+
+### Release Notes
+
+* 1.0 — First published version
+* 1.1 — Add hover effects on dictionary entries
