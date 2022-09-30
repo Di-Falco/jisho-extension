@@ -25,3 +25,4 @@ More information regarding Jisho and its sources can be found at https://jisho.o
 
 * 1.0 — First published version
 * 1.1 — Add hover effects on dictionary entries
+* 1.2 — Add context menu item

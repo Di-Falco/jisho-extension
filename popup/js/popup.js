@@ -80,14 +80,41 @@ formatJlpt = (jlpt) => {
   return output.join(", ");
 }
 
+const CONTEXT_MENU_ID = "JISHO_CONTEXT_MENU";
+
+const beginSearch = async (word) => {
+  const dictionary = await makeApiCall(word);
+  if (validateEntry(word, dictionary.data)) {
+    displayReading(word, dictionary.data);
+  }
+}
+
+// chrome.runtime.onInstalled.addListener( () => {
+  chrome.contextMenus.create({
+    "id": "searchJisho",
+    "title": "Search %s in Jisho",
+    "contexts": ["selection"],
+    "id": "CONTEXT_MENU_ID"
+  });
+// });
+
+chrome.contextMenus.onClicked.addListener( (info) => {
+  if(info.menuItemId === "searchJisho") {
+    let jishoUrl = "https://jisho.org/search/" + String(info.selectionText);
+    if (/^[\u4e00-\u9faf]$/.test(info.selectionText)) {
+      jishoUrl += "%23kanji"
+    }
+    chrome.tabs.create({
+      url: jishoUrl
+    })
+  }
+});
+
 $(document).ready(function() {
   $("form#search").submit(async function(event) {
     event.preventDefault();
     const word = $("#searchTerm").val().toLowerCase();
-    const dictionary = await makeApiCall(word);
-    if (validateEntry(word, dictionary.data)) {
-      displayReading(word, dictionary.data);
-    }
+    beginSearch(word);
   });
 
   $(".output").on('click', '.word', function(event) {
