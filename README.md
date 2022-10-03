@@ -2,6 +2,8 @@
 
 #### by Anthony DiFalco
 
+_You can download this extension at <a href='https://chrome.google.com/webstore/detail/jisho/olidlpahhbcmghclhihghhjodafpfhmf?hl=en&authuser=0'>this link</a>_
+
 ### Using the extension
 
 Text input sends a GET request to the unofficial jisho.org API.
